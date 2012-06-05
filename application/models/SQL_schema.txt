@@ -1,0 +1,72 @@
+Person
+-id
+-first name
+-last name
+-address
+-phone number
+-e-mail address
+-is_active
+-date_created
+-date_updated
+
+Login
+-id
+-person_id
+-username
+-password
+-password_retrieval_hint
+-password_retrieval_answer
+-date_created
+-date_updated
+
+Roles
+-login_id
+-role_type_id
+-date_created
+
+Role_Type
+-id
+-role
+-description
+
+CREATE TABLE persons(
+  `id` int(11) not null auto_increment,
+  `firstname` varchar(25) not null,
+  `lastname` varchar(25) not null,
+  `address` text,
+  `telephone_number` varchar(25),
+  `email` varchar(50) not null,
+  `is_active` bool default 1,
+  `date_created` datetime not null,
+  `date_updated` datetime not null,
+  PRIMARY KEY(`id`)
+);
+
+CREATE TABLE logins(
+  `id` int(11) not null auto_increment,
+  `person_id` int(11) not null,
+  `username` varchar(255) not null,
+  `password` varchar(255) not null,
+  `password_retrieval_hint` text not null,
+  `password_retrieval_answer` text not null,
+  `date_created` datetime not null,
+  `date_updated` datetime not null,
+  PRIMARY KEY(`id`)
+);
+
+CREATE TABLE roles(
+  `id` int(11) not null auto_increment,
+  `login_id` int(11) not null,
+  `role_type_id` int(11) not null,
+  `date_created` datetime not null,
+  PRIMARY KEY(`id`)
+);
+
+CREATE TABLE role_types(
+  `id` int(11) not null auto_increment,
+  `role_type` varchar(25) not null,
+  `description` text,
+  PRIMARY KEY(`id`)
+);
+
+INSERT INTO role_types(`role_type`,`description`) VALUES('admin', 'work hard! :D');
