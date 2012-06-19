@@ -2,13 +2,21 @@
 
 class Home extends CI_Controller {
 
+    public function __construct()
+    {
+      parent::__construct();
+      $this->load->library ( 'masterpage' );
+	  $this->masterpage->setMasterPage ( 'masterpage_default' );
+	  
+	  # show latest news always
+	  $this->load->model('Newsletter');
+	  $this->masterpage->addContentPage ( 'news_list', 'navcontent',
+          array('news' => $this->Newsletter->get_latest_news()));
+    }
+
 	public function index()
 	{
-	  $this->load->model('RoleType');
-	  $roletype = new $this->RoleType();
-	  $asd= $roletype->get()->result();
-	  print_r(get_object_vars($asd[0]));
-	    die('home');
-		$this->load->view('welcome_message');
+	  $this->masterpage->addContentPage ( 'home', 'content');
+      $this->masterpage->show(array('active_link' => get_class($this)));
 	}
 }

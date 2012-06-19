@@ -10,63 +10,100 @@ class Base extends CI_Model {
         parent::__construct();
     }
 	
-	function get_by_id($id)  //# test this
+	function load($id)  //# test this
 	{
       $this->db->where('id', $id);
-	  $result = $this->db->get($this->_tablename);
+	  $query = $this->db->get($this->_tablename);
+      if(!$query->num_rows)
+	    throw new BaseModelRuntimeException("Object not found");
 	  
-	  if($result->num_rows == 1){
-        $class_vars = get_object_vars($result->row());
+	  $class_vars = get_object_vars($query->row());
 
-	    // if property exists that matches row name, then set value
-        foreach ($class_vars as $name => $value)
-          $this->set_property($name, $value);
-      }
-
-    }
-
-	# select
-	function get($where_parameters = array(), $select_parameters = array())
-	{
+	  // if property exists that matches row name, then set value
+      foreach ($class_vars as $name => $value)
+        $this->set_property($name, $value);
+	}
 	
+	function load_by($where_parameters = array(), $select_parameters = array())
+	{
 	  foreach($select_parameters as $k => $v)
 	    $this->db->select($k, $v);
 	  
 	  foreach($where_parameters as $k => $v)
 	    $this->db->where($k, $v);
 		
-	  $raw_result = $this->db->get($this->_tablename);
+	  $query = $this->db->get($this->_tablename);
+	  if(!$query->num_rows)
+	    return null;
+		
+	  $class_vars = $query->row();
+	  foreach ($class_vars as $name => $value)
+        $this->set_property($name, $value);
+		  
+      return $this;
+	}
+
+	# select
+	function get($where_parameters = array(), $select_parameters = array())
+	{
+	  if(!empty($select_parameters))
+	    $this->db->select(implode(',', $select_parameters));
 	  
+	  if(!empty($where_parameters))
+	    foreach($where_parameters as $k => $v)
+	      $this->db->where($k, $v);
+		
+	  $raw_result = $this->db->get($this->_tablename);
+	  return $this->create_objects($raw_result);
+	}
+	
+	protected function create_objects($raw_result){
+	
 	  $result     = array();
-	  $self_class = get_class($this);
-	  foreach($raw_result->result() as $row){
-	    $obj = new $self_class; 
-		$obj->set_properties($row);
-	    array_push($result, $obj);
-	  }
+	  if(!empty($raw_result))
+	    foreach($raw_result->result() as $row)
+	      array_push($result, $this->create_object($row));
 	  
 	  return $result;
 	}
 	
-	# insert
-    function save()
-	{
+	private function create_object($data_row){
 	
-	  # note: use get_object_vars
+	  $self_class = get_class($this);
+	  $obj = new $self_class;
+	  $obj->set_properties($data_row);
+	  return $obj;
 	  
+	}
+	
+	# insert
+    function insert()
+	{
 	  $this->db->insert($this->_tablename, $this);
 	  return $this->db->insert_id();
 	  
 	}
 	
 	# update
-	function update($id, $model)
+	function update()
 	{
 	
-	  $this->db->where('id', $id);
-	  $this->db->update($this->_tablename, $model);
+	  $this->db->where('id', $this->id);
+	  $this->db->update($this->_tablename, $this);
 	  return $this->db->affected_rows();
 	  
+	}
+	
+	# save  :decide to save or update
+	function save(){
+	
+	  if($this->id)
+	    $this->update($this->id, $this);
+	  else{
+	    $this->insert();
+		$this->load($this->db->insert_id());
+      }
+	
 	}
 	
 	# delete
@@ -96,5 +133,7 @@ class Base extends CI_Model {
 	  
     }
 }
+
+class BaseModelRuntimeException extends Exception{}
 
 ?>
