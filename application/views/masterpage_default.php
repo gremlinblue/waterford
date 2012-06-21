@@ -6,15 +6,17 @@
 	<script src="<?= base_url(); ?>js/onstart.js" type="text/javascript"></script>
 	<script type="text/javascript">
 	  $(document).ready(function() {
-		set_menu_active("<?= $active_link ?>") ;
+		set_menu_active("<?= $active_link ?>");
 	  });
 	</script>
 </head>
 
 <body>
+<div id="lightbox" class="white_content"><div></div></div>
+<div id="fade" class="black_overlay"></div>
 	<header>
 		<div class="top-row">
-		    <a href="<?= base_url();?>"><img src="../images/logo.png"/></a>
+		    <a href="<?= base_url();?>"><img src="<?= base_url(); ?>images/logo.png"/></a>
 		</div>
 		<nav>
 			<ul class="sf-menu">
@@ -49,17 +51,29 @@
 					</a>
 				</li>
 				<li>
-					<form id="search">
+					<!--form id="search">
 					 <a class="fright" onclick="document.getElementById('search').submit()"></a>
 					 <input name="head-search" type="text">
-					</form>
+					</form-->
+					
+					<? if ( isset($this->session->userdata['username']) ): ?>
+					  <a href="/login/logout">
+						Logout
+						<b><?= $this->session->userdata['username']?></b>
+					  </a>
+					<? else: ?>
+					  <a href="javascript:show_replace_content($('#lightbox'),'/login');">
+						Login
+						<b>For Admins</b>
+					  </a>
+					<? endif; ?>
 				</li>
 			</ul>
 			
 			<div class="clear"></div>
 		</nav>
 	</header>
-	
+
 	<section id="content">
 		<div class="main_container">
 			<div class="vr-border-1">

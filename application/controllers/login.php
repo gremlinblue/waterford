@@ -34,13 +34,14 @@ class Login extends CI_Controller {
          }
 
       }
-	  $this->load_view();
+	  #$this->load_view();
+	  $this->load->view('login');
 	}
 	
     public function logout()
     {
       $this->session->unset_userdata('username');
-	  redirect('login');
+	  redirect('home');
     }
 	
 	private function load_view()

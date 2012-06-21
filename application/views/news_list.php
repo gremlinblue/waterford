@@ -8,4 +8,3 @@
 	</li>
 	<? endforeach; ?>
 </ul>
-<a href="http://static.livedemo00.template-help.com/wt_39101/more.html" class="button">Read More</a>
