@@ -6,7 +6,7 @@ if (!function_exists('link_to'))
     {
 	  get_instance()->load->helper('inflector');
       #return anchor(plural(strtolower(get_class($object)))."/".$method."/".$object->id, $text);
-	  return anchor(get_class($object)."/".$method."/".$object->id, $text);
+	  return anchor(strtolower(get_class($object))."/".$method."/".$object->id, $text);
     }
 }
 

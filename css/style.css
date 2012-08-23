@@ -1,7 +1,7 @@
 body{
 	background:#161313;
 	font:13px/20px "Trebuchet MS", Arial, Helvetica, sans-serif;
-	color:#4b4b4b;
+	color:#8B8C8C;
 	position:relative;
 	min-width:960px;
 }
@@ -11,6 +11,15 @@ html,body{height:100%;}
 	margin:0 auto;
 	position:relative;
 	width:960px; 
+}
+
+.main_wrapper{
+	min-height: 100%;
+	height: auto !important;
+	height: 100%;
+	margin: 0;
+	padding: 0;
+	width: 100%;
 }
 .fleft{float:left}
 .fright{float:right}
@@ -38,7 +47,7 @@ html,body{height:100%;}
 h1,h2,h3,h4,h5,h6{
 	color:#fff;
 	font-family: 'Ubuntu', sans-serif;
-	padding:0 0 22px 0;
+	padding:0 0 15px 0;
 	font-weight:normal;
 	text-shadow:1px 1px #000;
 	letter-spacing:-1px;
@@ -76,6 +85,8 @@ article h3{ padding:0; }
 	width: 630px;
 }
 
+.red{ color:red; }
+
 /*----- borders & lines -----*/
 .vr-border-1 {
 	display:inline-block;
@@ -83,7 +94,8 @@ article h3{ padding:0; }
 }
 
 /*----- indents -----*/
-p {padding-bottom:20px;}
+p { padding-bottom:20px; }
+article.no_pads p { padding: 0px; }
 
 .indent-bot {
 	padding:0 0 47px 0;
@@ -97,6 +109,76 @@ a {
 }
 a:hover {text-decoration: underline;}
 p a {color:#fff;}
+input{
+    border-style:solid;
+	border-color:#ccc;
+	border-width:1px;
+	height:20px;
+	width: 100%;
+	font-size:18px;
+	line-height:18px;
+}
+textarea{
+	width: 99%;
+}
+
+div.login{
+    background-color: #fff;
+	width:100%;
+	padding: 20px 0px 20px;
+	border-radius: 10px;
+}
+
+div.login p{
+	padding: 0px;
+}
+
+div.login div{
+	margin:  20px;
+	display: inherit;
+}
+
+div.login .greeting{
+    padding: 10px;
+	background:url(../images/button-tail.gif) repeat-x 0 0 #455d02;
+	color: #fff
+}
+
+div.login label{
+	font-size:18px;
+	line-height:18px;
+}
+
+table.container{
+    width: 100%;
+}
+table.container td{ vertical-align:top;}
+
+div.image{
+    padding:10px;
+	background-color:#120f10;
+    border-radius:10px;
+	-moz-border-radius:10px;
+	-webkit-border-radius:10px;
+	#border:1px solid #161414;
+	box-shadow: 0 0 3px #000000;
+}
+
+.normal_button {
+	text-decoration:none;
+	display:inline-block;
+	padding:7px 16px 9px;
+	border-radius:3px;
+	-moz-border-radius:3px;
+	-webkit-border-radius:3px;
+	background:url(../images/button-tail.gif) repeat-x 0 0 #455d02;
+	color:#fff;
+	font-size:16x;
+	line-height:35px;
+	text-transform:uppercase;
+	font-family: 'Ubuntu', sans-serif;
+	position:relative;
+}
 
 .button {
 	display:inline-block;
@@ -160,15 +242,6 @@ header{
 	margin:0 auto;
 	width:600px;
 }
-.logo {
-	float:left;
-	width:218px;
-	height:69px;
-	overflow:hidden;
-	text-indent:-99em;
-	background: url(../images/logo.png) no-repeat 0 0;
-	margin:0 0 0 14px;
-}
 /********************** Navigation ************************/
 
 header nav {
@@ -201,13 +274,14 @@ header nav {
 	float:left;
 	width:160px;
 	background:url(../images/nav-separator.gif) no-repeat right center;
+	list-style:none;
 }
 
 .sf-menu > li:last-child { 
     background:none;
 }
 .sf-menu > li:first-child {border:none;}
-.sf-menu > li > a {
+.sf-menu > li > a, .menu_a {
 	text-decoration:none;
 	display:block;
 	font-size:14px;
@@ -284,7 +358,6 @@ header nav {
 /********************** Content ************************/
 section#content {
 	padding:51px 0 30px;
-	border-bottom:1px solid #000;
 }
 #content {
 	padding:165px 0 60px;
@@ -314,22 +387,37 @@ section#content {
 }
 
 /******************** Table *******************/
+table.members{ width:100%;}
 table.members .col {
-    background-color: #296029;
+    background-color: #365112;
 	color: #fff;
     font-weight: bold;
-    padding: 0.2em 0.5em;
-    text-align: center;
+	text-align: center;
+	padding: 5px 0px;
+}
+table.members tr{
+    color: #fff;
 }
 
-table.members tr .cell_value {
-    color: #fff;
-    background-color: #333333;
-    padding: 8px 5px;
+table.members td{
+    padding: 8px;
+	vertical-align: top;
+}
+
+table.members td.name{
+    width:24%;
+}
+
+table.members tr:nth-child(odd) {
+    background-color: #1B1918;
+}
+
+table.members tr:nth-child(even){
+    background-color: #24201F;
 }
 
 table.members tbody tr:hover td{
-	background-color: #299929;
+	background-color: #333333;
 }
 
 /******************** Footer ******************/
@@ -363,14 +451,32 @@ footer .inner {
 .white_content {
 	display: none;
 	position: absolute;
-	top: 30%;
-	left: 40%;
-	width: 15%;
-	height: 15%;
+	top: 25%;
+	left: 30%;
+	margin: auto;
+	width: 35%;
+	height: 35%;
 	padding: 10px;
 	border: 2px solid #c2c2c2;
 	background-color: #ffefef;
 	border-radius: 10px;
 	z-index:1002;
 	overflow: auto;
+}
+
+.close-btn {
+    border: 2px solid #c2c2c2;
+    position: relative;
+    padding: 1px 5px;
+    top: -20px;
+    background-color: #605F61;
+    left: 198px;
+    border-radius: 20px;
+}
+
+.close-btn a {
+    font-size: 15px;
+    font-weight: bold;
+    color: white;
+    text-decoration: none;
 }

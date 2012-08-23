@@ -1,37 +1,40 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-	<title>Members List</title>
-</head>
-<body>
+<?= form_open("admin_members/save_list") ?>
+<table class="box-table">
 
-<div id="container">
-  <table border=1>
-  
-    <thead>
-	  <? foreach($columns as $k => $v): ?>
-	    <th><?= $k ?></th>
-	  <? endforeach; ?>
-      <th>
-      </th>
-    </thead>
-	
-  <? foreach($persons as $k => $v):?>
-    <tr>
-	  <? foreach(array_keys($columns) as $col): ?>
-	     <td>
-		   <?= $v->$col ?>
-		 </td>
-	  <? endforeach; ?>
-	  <td><?= anchor("members/edit/".$v->id, "edit") ?></td>
-	</tr>
+<thead>
+  <? foreach($columns as $k => $v): ?>
+	<th><?= $k ?></th>
   <? endforeach; ?>
-  </table>
-  <?= form_open("members/create") ?>
-    <?= form_submit('create', 'Create')?>
-  <?= form_close() ?>
-  
-</div>
+  <th>
+  </th>
+</thead>
 
-</body>
-</html>
+<? foreach($persons as $k => $v):?>
+<tr>
+  <? foreach(array_keys($columns) as $col): ?>
+	 <td>
+	   <? if($col == 'is_active'): ?>
+	     <?= $v->$col ? 'TRUE' : 'FALSE' ?>
+		 
+	   <? elseif($col == 'role'): ?>
+	     <?= $roles[$v->$col]; ?>
+		 
+	   <? else: ?>
+	     <?= $v->$col; ?>
+	   <? endif;?>
+	   
+	 </td>
+  <? endforeach; ?>
+  <td><?= anchor("admin_members/edit/".$v->id, "Edit", "class=button") ?></td>
+</tr>
+<? endforeach; ?>
+</table>
+
+<div style="padding:15px 0;" class="fright">
+  <?= anchor("admin_members/create", "Create", "class='button'") ?>
+  <?= form_submit(array("id" => 'save', "style" => 'display:none'), 'Save')?>
+  <!--a class="button" href="javascript:$('#save').click();">Save</a-->
+  <a class="button" href="javascript:history.back()">Cancel</a>
+</div>
+<?= form_close() ?>
+

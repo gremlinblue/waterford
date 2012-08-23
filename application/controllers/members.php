@@ -5,7 +5,7 @@ class Members extends CI_Controller {
     public function __construct()
     {
       parent::__construct();
-      $this->load->library ( 'masterpage' );
+      $this->load->library ( 'MasterPage' );
 	  $this->masterpage->setMasterPage ( 'masterpage_default' );
 	  
 	  # show latest news always

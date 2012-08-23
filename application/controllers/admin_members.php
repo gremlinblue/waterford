@@ -1,7 +1,14 @@
 <?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 
-class Members extends MY_Controller {
+class Admin_Members extends MY_Controller {
 
+	public function __construct()
+    {
+      parent::__construct();
+      $this->load->library ( 'MasterPage' );
+	  $this->masterpage->setMasterPage ( 'masterpage_admin' );
+	}
+	
 	public function index()
 	{
 	  $this->show_list();
@@ -14,6 +21,9 @@ class Members extends MY_Controller {
 	  $this->load->model('Person');
 	  $person = new $this->Person();
 	  
+	  #roles
+	  $data['roles']  = $this->load_roles();
+	  
 	  #persons
 	  $persons = $person->get();
 	  $data['persons'] = $persons;
@@ -24,14 +34,16 @@ class Members extends MY_Controller {
 	  $data['columns'] = $columns;
 	  
 	  $this->load->helper('form');
-	  $this->load->view('members_list', $data);
+	  $this->masterpage->addContentPage ( 'admin_members_list', 'content', $data);
+	  $this->masterpage->show(array('active_link' => 'Members'));
+
 	}
 	
 	public function save()
 	{
 	  $parameters = $this->input->post();
 	  $this->save_person($parameters);
-	  redirect('/members');
+	  redirect('/admin_members');
 	}
 	
 	public function create()
@@ -43,11 +55,12 @@ class Members extends MY_Controller {
 	{	
 	  $data = array();
 	  
-	  $data['person'] = $this->load_person($id);
+	  if($id)
+	    $data['person'] = $this->load_person($id);
 	  $data['roles']  = $this->load_roles();
 	  
-	  $this->load->helper('form');
-	  $this->load->view('members_edit', $data);
+	  $this->masterpage->addContentPage ( 'admin_members_edit', 'content', $data);
+	  $this->masterpage->show(array('active_link' => 'Members'));
 	}
 	
 	public function delete($id)
@@ -56,7 +69,7 @@ class Members extends MY_Controller {
 	  $person  = new $this->Person();
 	  $person->delete($id);
 	  
-	  redirect('/members');
+	  redirect('/admin_members');
 	}
 	
 	private function load_person($person_id){

@@ -5,7 +5,7 @@ class News extends CI_Controller {
     public function __construct()
     {
       parent::__construct();
-      $this->load->library ( 'masterpage' );
+      $this->load->library ( 'MasterPage' );
 	  $this->masterpage->setMasterPage ( 'masterpage_default' );
 	  
 	  # show latest news always
@@ -24,8 +24,13 @@ class News extends CI_Controller {
 	  $news = new $this->Newsletter();
 	  $news->load($id);
 	  
+	  $this->load->model('Person');
+	  $person = new $this->Person();
+	  $person->load($news->author_id);
+	  
 	  $this->masterpage->addContentPage ( 'news_page', 'content',
-          array('news' => $news));
+          array('news' => $news,
+		        'author' => $person));
 	  $this->masterpage->show(array('active_link' => get_class($this)));
 	}
 	

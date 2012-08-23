@@ -1,25 +1,10 @@
-<article>
-	<h3>About Us</h3>
-	<p>
-		Lorem ipsum dolor sit amet, consectetuer adipiscing
-		 elit, sed diam nonummy nibh euismod tincid unt ut laoreet dolore magna 
-		aliquam erat volutpat. Ut wisi enim ad minim veniam, quis nostrud exerci
-		 tation ullamcorper suscipit lobortis nisl ut aliquip ex ea commodo 
-		consequat. Duis autem vel eum iriure dolor in hendrerit in vulputate 
-		velit esse molestie consequat, vel illum dolore eu feugiat nulla 
-		facilisis at vero eros et accumsan et iusto odio dignissim qui blandit 
-		prae sent luptatum zzril delenit augue duis dolore te feugait nulla 
-		facilisi.
-	</p>
-	<p>
-		Lorem ipsum dolor sit amet, consectetuer adipiscing
-		 elit, sed diam nonummy nibh euismod tincid unt ut laoreet dolore magna 
-		aliquam erat volutpat. Ut wisi enim ad minim veniam, quis nostrud exerci
-		 tation ullamcorper suscipit lobortis nisl ut aliquip ex ea commodo 
-		consequat. Duis autem vel eum iriure dolor in hendrerit in vulputate 
-		velit esse molestie consequat, vel illum dolore eu feugiat nulla 
-		facilisis at vero eros et accumsan et iusto odio dignissim qui blandit 
-		prae sent luptatum zzril delenit augue duis dolore te feugait nulla 
-		facilisi.
-	</p>
+<article class="no_pads">
+<h3>About Us</h3>
+
+<p>The County Waterford Association S.B.&P. Association of New York was incorporated in 1902 in New York City.</p>
+<p>Historically it has provided a social connection and safety net for the people that emigrated to New York from County Waterford. As the generations go by we are still here to continue that tradition of support and to promote our common causes.</p>
+<p>We appreciate your participation in our annual Dinner-Dance, The St. Patrick's Day Parade and other social events of common interest. We will try to keep all members informed and involved in all things culturally Irish and meanwhile promote the businesses of the Association membership.</p>
+<p>Please utilize this web-site to stay in touch. Use the membership directory to contact old friends. If you have an event to promote consider this a tool to widen the net of attendance and participation.</p>
+<p>Up the Deise!</p>
+
 </article>

@@ -33,45 +33,20 @@ class Newsletter extends Base {
 	  parent::insert();
 	}
 	
-	function broadcast($emails)
-	{
-	  $this->send_email($emails);
-	  $this->date_broadcasted = strftime('%Y-%m-%d %H:%M:%S', time());
-	  $this->update();
-	}
-	
 	function get_latest_news($limit = 5)
 	{
-	  $this->db->select('id,title,date_created');
-	  $this->db->order_by('date_created','desc');
-	  $this->db->limit($limit);
-	  $raw_result = $this->db->get($this->_tablename);
-	  return $this->create_objects($raw_result);
-	}
-	
-	function get_news_summary($limit = 3)
-	{
 	  $this->db->select('id,title,news,date_created');
+	  $this->db->where('published', true);
+	  $this->db->order_by('frontpage','desc');
 	  $this->db->order_by('date_created','desc');
 	  $this->db->limit($limit);
 	  $raw_result = $this->db->get($this->_tablename);
 	  return $this->create_objects($raw_result);
 	}
 	
-	private function send_email($emails)
+	function get_news_summary()
 	{
-	  /*$this->load->library('email');
-$emails = array('scytheb_2501@yahoo.com','caithyheart@yahoo.com');
-      $this->email->from('your@example.com', 'Your Name');
-      $this->email->to(implode(',',$emails));
-      #$this->email->cc('another@another-example.com');
-      #$this->email->bcc('them@their-example.com');
-
-      $this->email->subject('Email Test');
-      $this->email->message('Testing the email class.');
-      $this->email->send();
-
-      echo $this->email->print_debugger();die();*/
+	  return $this->get_latest_news();
 	}
 }
 
